@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="basegreen">#54BC73</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffff</color>
+    <color name="cycle_image_bg">#44222222</color>
+    <color name="gray">#CBCBCB</color>
+    <color name="base_background">#f0f0f0</color>
+    <color name="red">#FFFF0000</color>
+
+
+    <!--我添加-->
+    <color name="gray_white">#CAC7C7</color>
+    <color name="divider_color">#E0DCDC</color>
+    <color name="yellow">#FFAE00</color>
+    <color name="transparent_half">#80050505</color>
+    <color name="transparent">#00000000</color>
+
+    <!--snackbar-->
+    <color name="default_bg_color">#FFFFFF</color>
+    <color name="default_title_color">#000000</color>
+    <color name="default_message_color">#000000</color>
+    <color name="default_action_color">#26a69a</color>
+
+
+
+    <!--我添加-->
+</resources>
