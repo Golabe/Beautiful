@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -26,13 +27,13 @@ import club.goture.beautiful.beautifullib.config.Config;
 public class ImageCompressUtil implements Handler.Callback {
     private static final String TAG = "ImageCompressUtil";
     private final Config config;
-    private Handler mHandler ;
+    private Handler mHandler;
     private OnCompressResultListener onCompressResultListener;
     private Thread thread;
 
     public ImageCompressUtil(Config config) {
         this.config = config;
-        this.mHandler= new Handler(Looper.myLooper(),this);
+        this.mHandler = new Handler(Looper.myLooper(), this);
     }
 
 
@@ -71,10 +72,13 @@ public class ImageCompressUtil implements Handler.Callback {
             return null;
 
         Log.d(TAG, "compress: " + config.getZipCacheDir());
-        File tempFile = FileUtil.getDir(config.getZipCacheDir());
-        String outImagePath = tempFile.getAbsolutePath(); // 输出图片文件路径
+//        File tempFile = FileUtil.getDir(config.getZipCacheDir());
 
+//        String outImagePath = tempFile.getAbsolutePath(); // 输出图片文件路径
 
+        String tempFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + File.separator + "temp.jpg";
+
+        File file1 = new File(tempFile);
         int degree = getBitmapDegree(filePath); // 检查图片的旋转角度
 
         //谷歌官网压缩图片
@@ -94,7 +98,7 @@ public class ImageCompressUtil implements Handler.Callback {
         // 写入文件
         FileOutputStream fos;
         try {
-            fos = new FileOutputStream(tempFile);
+            fos = new FileOutputStream(file1);
             bitmap.compress(Bitmap.CompressFormat.JPEG, config.getQuality(), fos);
             fos.flush();
             fos.close();
@@ -107,7 +111,7 @@ public class ImageCompressUtil implements Handler.Callback {
             return filePath;
         }
 
-        return outImagePath;
+        return tempFile;
     }
 
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -197,7 +201,7 @@ public class ImageCompressUtil implements Handler.Callback {
 
     @Override
     public boolean handleMessage(Message msg) {
-        if (onCompressResultListener!=null){
+        if (onCompressResultListener != null) {
             onCompressResultListener.onSuccess((String) msg.obj);
         }
         return false;
